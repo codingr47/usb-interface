@@ -46,6 +46,12 @@ export default class USBConnectedDevices {
         USBConnectedDevices.SingleInstance = connected_devices;
         return connected_devices;
     }
+    /**
+     * static recursive method that searches the tree for a specific product.
+     * @param - devices:Array<USBConnectedDevice> default should be the 0 level devices list.
+     * @param - productID:number - the productID to search for
+     * @return - USBConnectedDevice
+     */
     static findElementByProductID(devices:Array<USBConnectedDevice>, productID:number) : USBConnectedDevice {
         for(let i = 0; i<devices.length; i++) {
             const device:USBConnectedDevice = devices[i];
@@ -62,7 +68,10 @@ export default class USBConnectedDevices {
         this.devices = _devices === null ? [] : _devices;
     }
 
-    
+    /**
+     * inserts an element as a child of the parent
+     * @param device:USBConnectedDevice - the device, already inside the model
+     */
     insertElement(device:USBConnectedDevice) : void {
         const parent:number = device.parentID;
         const parent_element:USBConnectedDevice = USBConnectedDevices.findElementByProductID(this.devices, parent);
@@ -70,6 +79,10 @@ export default class USBConnectedDevices {
             parent_element.children.push(device);
 
     }
+    /**
+     * removes an element from his expected parent's children
+     * @param device:USBConnectedDevice - the device, already inside the model
+     */
     removeElement(device:USBConnectedDevice) : void {
         const db = USBDataset.SingleInstance;
         const parent:number = device.parentID;

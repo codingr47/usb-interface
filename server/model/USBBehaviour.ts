@@ -13,7 +13,13 @@ export class USBBehaviour {
     static devices() : Array<USBConnectedDevice> {
         return USBConnectedDevices.GetDevicesFromAPI().devices;
     }
-    static addEventListener(event:USBEvent, networkEventBehaviour:Function, args:Array<any>) {
+    /**
+     * addEventListener - this function adds a 
+     * @param event  - the USBevent name
+     * @param networkEventBehaviour - a network  wrap function who will be called when event occours
+     * @param args - args to be passed to networkEventBehaviour
+     */
+    static addEventListener(event:USBEvent, networkEventBehaviour:Function, args:Array<any>) : void {
         usb.on(event, (device:any) => {
             const usbEvent:USBConnectedDevice = USBConnectedDevice.CreateInstanceFromAPI(device);
             const db:USBDataset = USBDataset.SingleInstance;

@@ -18,7 +18,7 @@ export default class USBDataset {
      * @param products a JSON object that is expected to contain all relevant product data
      * @return USBDataset, created by this function using passed data
      */
-    static CreateFromJSON(vendors:any, products:any) {
+    static CreateFromJSON(vendors:any, products:any) : USBDataset {
         if(USBDataset.SingleInstance !== null)
             throw new Error("Cannot create db instance more than once in same process");
         const dataset = new USBDataset();
@@ -44,22 +44,27 @@ export default class USBDataset {
         this.vendorsDictionary = {};
         this.productsDictionary = {};
     }
-    addVendor(vendor:USBVendor) {
+    addVendor(vendor:USBVendor) : void {
         this.vendors.push(vendor);
         this.vendorsDictionary[vendor.id] = this.vendors.length-1;
     }
-    addProduct(product:USBProduct) {
+    addProduct(product:USBProduct) : void {
         this.products.push(product);
         this.productsDictionary[product.id] = this.products.length-1;
     }
-    addExepectedForProcessingRow(line:string) {
+    /**
+     * this method adds a line that is expected to be processed.
+     * this method is only used while the database is being built from text based DB 
+     * @param line:string the line that is being processed
+     */
+    addExepectedForProcessingRow(line:string) : void {
         this.expected_rows.push(line);
     }
 
-    getVendorByID(id:number) {
+    getVendorByID(id:number) : USBVendor {
         return this.vendors[this.vendorsDictionary[id]];
     }
-    getProductByID(id:number) {
+    getProductByID(id:number) : USBProduct {
         return this.products[this.productsDictionary[id]];
     }
 }

@@ -43,8 +43,11 @@ const extractVendor:Function  = (line)  => extractByPattern(line, VENDOR_PATTERN
 const extractProduct:Function = (line)  => extractByPattern(line, PRODUCT_PATTERN); 
 
 
-
-export const getUSBDatasetFromUSBDB:Function = () => {
+/**
+ * this function fetches an online USB database 
+ * and afterwards inserts it into a USBDataset data structure
+ */
+export const getUSBDatasetFromUSBDB:Function = () : USBDataset => {
         return fetch("http://www.linux-usb.org/usb.ids").then ( response => response.text()).then(text => { 
             
             const data:USBDataset = new USBDataset();
@@ -68,7 +71,7 @@ export const getUSBDatasetFromUSBDB:Function = () => {
                 }
                 else if (isProduct(line)) {
                     [product_id, product_name] = extractProduct(line);
-                    data.addProduct(new USBProduct(parseInt(product_id, 16, ), product_name.trim(), processed_vendor_id));
+                    data.addProduct(new USBProduct(parseInt(product_id, 16), product_name.trim(), processed_vendor_id));
                 }
                 
             }

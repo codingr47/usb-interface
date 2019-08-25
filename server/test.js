@@ -1,3 +1,8 @@
+/**
+ * this is a test I did back in the begining, 
+ * it contains the original descriptors of the API 
+ * and general testing of the API
+ */
 const usb = require("usb");
 const IN_MEMORY_DEVICES = [];
 const getUSBDescriptorAsync = async (device, descriptorStart, descriptorEnd) => {

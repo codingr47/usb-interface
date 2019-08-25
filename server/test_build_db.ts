@@ -17,6 +17,10 @@ const mkdir = (dir_name:string) => {
 }
 
 let dataset:USBDataset;
+/**
+ * this runs a test to check if all expected to be processed lines 
+ * in the text Online DB were actually being processed into entities
+ */
 describe("is USB Database exported properly", () => {
     it('sum of products and vendors should be equal to expected rows', async () => { 
         dataset = await getUSBDatasetFromUSBDB();

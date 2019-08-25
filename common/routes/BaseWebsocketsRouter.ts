@@ -14,8 +14,12 @@ export default class BaseWebsocketsRouter extends BaseRouter {
         });
 
     }
-
-    shortHash(route:string) {
+    /**
+     * 
+     * @param route - this is the route_name
+     * @return a 4 byte short hash that is used for Socket Communication
+     */
+    shortHash(route:string) : string  {
         return md5(route).substr(0,4);
     }
 }
