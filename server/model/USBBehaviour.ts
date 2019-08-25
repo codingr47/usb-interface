@@ -15,15 +15,17 @@ export class USBBehaviour {
     }
     static addEventListener(event:USBEvent, networkEventBehaviour:Function, args:Array<any>) {
         usb.on(event, (device:any) => {
+            const usbEvent:USBConnectedDevice = USBConnectedDevice.CreateInstanceFromAPI(device);
             const db:USBDataset = USBDataset.SingleInstance;
             const devices:USBConnectedDevices = USBConnectedDevices.GetDevicesFromAPI();
             if(event == USBEvent.ATTACH) {
-                devices.insertElement(device);
+                console.log(usbEvent);
+                devices.insertElement(usbEvent);
             }
             if(event == USBEvent.DETACH) {
-                devices.removeElement(device);
+                devices.removeElement(usbEvent);
             }
-            networkEventBehaviour(event, USBConnectedDevice.CreateInstanceFromAPI(device, null), args)
+            networkEventBehaviour(event, usbEvent, args)
         });
     }
 }
