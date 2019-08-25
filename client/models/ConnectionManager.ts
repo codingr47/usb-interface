@@ -15,7 +15,6 @@ export default class ConnectionManager {
     }
 
     messages(event:any) {
-        console.log(event);
         const data = JSON.parse(event.data);
         if(data.event === undefined) {        
             const devices:USBConnectedDevices = Object.assign(new USBConnectedDevices(), {devices:data});

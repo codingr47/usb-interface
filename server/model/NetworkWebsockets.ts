@@ -5,6 +5,7 @@ import { USBBehaviour } from './USBBehaviour';
 import { USBEvent } from '../../common/model/USBEvents';
 import USBConnectedDevice from '../../common/model/USBConnectedDevice';
 
+const md5 = require("blueimp-md5");
 const http = require("http");
 var WebSocketServer = require('websocket').server;
 
@@ -47,8 +48,10 @@ export default class NetworkWebsockets implements INetwork {
             event,
             data: device
         });
-        for(let i =0; i<connections.length; i++) {
-            connections[i].sendUTF(ret_json);
+        const keys = Object.keys(connections);
+        for(let i =0; i<keys.length; i++) {
+            const conn = connections[keys[i]];
+            conn.sendUTF(ret_json);
         }
     }
 
@@ -72,17 +75,20 @@ export default class NetworkWebsockets implements INetwork {
         console.log("middlewares");
         this.instance.on('request', (req)=> { 
             const connection = req.accept(null, req.origin);
-            this.connections.push(connection);
+            connection.connection_key = md5(new Date().valueOf().toString());
+            this.connections[connection.connection_key] = connection;
             connection.on('message', (message) => { 
                 console.log("message recieved");
                 for(let i = 0; i<this.routes.getRoutes().length; i++) {
                     const route = this.routes.routes[i];
                     if(message.utf8Data == route.route) {
-                        console.log(USBBehaviour,route.route_name);
                         this.networkDecorator(USBBehaviour[route.route_name])(connection);
                     }
                 }
                 
+            });
+            connection.on("close", (reason:any) => {
+                delete this.connections[connection.connection_key];
             });
         });
     }

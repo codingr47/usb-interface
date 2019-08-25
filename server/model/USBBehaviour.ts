@@ -25,7 +25,6 @@ export class USBBehaviour {
             const db:USBDataset = USBDataset.SingleInstance;
             const devices:USBConnectedDevices = USBConnectedDevices.GetDevicesFromAPI();
             if(event == USBEvent.ATTACH) {
-                console.log(usbEvent);
                 devices.insertElement(usbEvent);
             }
             if(event == USBEvent.DETACH) {
