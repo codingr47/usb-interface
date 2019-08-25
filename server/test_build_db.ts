@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import { getUSBDatasetFromUSBDB } from './utils/USBDBGeneratorUtils';
-import USBDataset from '../common/model/usb_dataset';
+import USBDataset from '../common/model/USBDataset';
 const fs = require("fs");
 //const path = require("path");
 

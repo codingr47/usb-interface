@@ -1,6 +1,6 @@
-import USBProduct from '../../common/model/usb_product';
-import USBVendor  from '../../common/model/usb_vendor';
-import USBDataset from '../../common/model/usb_dataset';
+import USBProduct from '../../common/model/USBProduct';
+import USBVendor  from '../../common/model/USBVendor';
+import USBDataset from '../../common/model/USBDataset';
 
 const fetch:any = require("node-fetch");
 
