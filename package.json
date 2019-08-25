@@ -1,0 +1,43 @@
+{
+  "name": "usb-interface",
+  "version": "1.0.0",
+  "description": "this is a usb interface for communicating between usb devices on the server to the client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-server": "node server/run.js",
+    "start-client": "webpack-dev-server ./client/index.tsx"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^12.7.2",
+    "blueimp-md5": "^2.11.1",
+    "http": "0.0.0",
+    "node-fetch": "^2.6.0",
+    "node-sass": "^4.12.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "sass-loader": "^7.3.1",
+    "usb": "^1.6.0",
+    "websocket": "^1.0.29"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.0",
+    "@types/mocha": "^5.2.7",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
+    "babel": "^6.23.0",
+    "chai": "^4.2.0",
+    "css-loader": "^3.2.0",
+    "mocha": "^6.2.0",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "^1.0.0",
+    "ts-loader": "^6.0.4",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0"
+  }
+}
