@@ -1,6 +1,7 @@
 import USBWebsocketsClient from "./USBWebsocketsClient";
 import USBConnectedDevices from '../../common/model/USBConnectedDevices';
 import USBConnectedDevice from "../../common/model/USBConnectedDevice";
+import { USBEvent } from '../../common/model/USBEvents';
 import StateManager from "./StateManager";
 let state_setter:Function;
 
@@ -14,13 +15,26 @@ export default class ConnectionManager {
     }
 
     messages(event:any) {
-        if(event.data.event === undefined) {
-            const data = JSON.parse(event.data);
+        console.log(event);
+        const data = JSON.parse(event.data);
+        if(data.event === undefined) {        
             const devices:USBConnectedDevices = Object.assign(new USBConnectedDevices(), {devices:data});
-            StateManager.GetInstance().set({deviceManager: devices});
+            StateManager.GetInstance().SetUSBConnectedDevices(devices);
         }
         else {
 
+            const eventName:string = data.event;
+            if(eventName) {
+                if(eventName == USBEvent.ATTACH) {
+                    const device = Object.assign(new USBConnectedDevice(), data.data);
+                    StateManager.GetInstance().GetUSBConnectedDevices().insertElement(device); 
+                }
+                else if (eventName == USBEvent.DETACH) {
+                    const device = Object.assign(new USBConnectedDevice(), data.data);
+                    StateManager.GetInstance().GetUSBConnectedDevices().removeElement(device);
+                }
+                StateManager.GetInstance().RefreshState();
+            }
         }
     }
 }

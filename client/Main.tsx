@@ -26,6 +26,7 @@ export default class Main extends React.Component<MainProps, {deviceManager:USBC
         if (!this.state.deviceManager)
             return [];
         const {devices} = this.state.deviceManager;
+        console.log("devices refresh", devices);
         return <Devices entities={devices} level={0} />
     }
     render() {
