@@ -63,23 +63,23 @@ export default class USBConnectedDevices {
     }
 
     
-    insertElement(device:any) : void {
-        const db = USBDataset.SingleInstance;
-        const parent:number = typeof(device.parent == Number) ? device.parent : device.parent.deviceDescriptor.idProduct;
+    insertElement(device:USBConnectedDevice) : void {
+        const parent:number = device.parentID;
         const parent_element:USBConnectedDevice = USBConnectedDevices.findElementByProductID(this.devices, parent);
         if(parent_element !== null)
-            parent_element.children.push(USBConnectedDevice.CreateInstanceFromAPI(device, null));
+            parent_element.children.push(device);
 
     }
-    removeElement(device:any) : void {
+    removeElement(device:USBConnectedDevice) : void {
         const db = USBDataset.SingleInstance;
-        const parent:number = typeof(device.parent == Number) ? device.parent : device.parent.deviceDescriptor.idProduct;
+        const parent:number = device.parentID;
         const parent_element:USBConnectedDevice = USBConnectedDevices.findElementByProductID(this.devices, parent);
         if(parent_element !== null ) 
             parent_element.children = parent_element.children.filter( (device_in_question:USBConnectedDevice) => {
-                if(device_in_question.product === undefined) return true;
-                return device_in_question.product.id !== db.getProductByID(device.deviceDescriptor.idProduct).id;
+                if(!device_in_question.product) return true;
+                return device_in_question.product.id != device.product.id
             }); 
+        
     }
 
     

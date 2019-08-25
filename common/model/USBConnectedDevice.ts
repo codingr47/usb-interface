@@ -27,7 +27,7 @@ export default class USBConnectedDevice {
         );
     }
 
-    constructor(_busNumber: number, _product:USBProduct, _vendor:USBVendor, _children:Array<USBConnectedDevice> = null, _parentID:number = null) {
+    constructor(_busNumber: number = null, _product:USBProduct = null, _vendor:USBVendor = null, _children:Array<USBConnectedDevice> = null, _parentID:number = null) {
         this.busNumber = _busNumber;
         this.product = _product;
         this.vendor = _vendor;
