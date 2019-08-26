@@ -2,7 +2,7 @@
 
 ## General Description
 This project includes a server and a client that communicate through Websockets.
-The server serves data about devices connected via USB, to the host machine of the server
+The server serves data about devices connected via USB (through the usage of an online DB that maps vendors and products), to the host machine of the server
 application.
 Currently it does not support any other features.
 
@@ -30,7 +30,7 @@ an import from the online USB DB and a test that verifies that its' behaviour is
 
 in order to start the server:
 ```
-npm run server-start
+npm run start-server
 ```
 
 
@@ -39,7 +39,7 @@ npm run server-start
 the client application runs on  a webpack dev server and to run it you need to run this command:
 
 ```
-npm run client-start
+npm run start-client
 ```
 
 ## NOTE: USBlib system dependencies
@@ -52,3 +52,6 @@ For example, on ubuntu:
  apt-get install build-essential libudev-dev
 ```
 
+On windows:
+
+Use Zadig to install the WinUSB driver for your USB device.
