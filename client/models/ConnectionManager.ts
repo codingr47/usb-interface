@@ -24,11 +24,13 @@ export default class ConnectionManager {
 
             const eventName:string = data.event;
             if(eventName) {
+		
                 if(eventName == USBEvent.ATTACH) {
                     const device = Object.assign(new USBConnectedDevice(), data.data);
                     StateManager.GetInstance().GetUSBConnectedDevices().insertElement(device); 
                 }
                 else if (eventName == USBEvent.DETACH) {
+		    console.log("event happend client");
                     const device = Object.assign(new USBConnectedDevice(), data.data);
                     StateManager.GetInstance().GetUSBConnectedDevices().removeElement(device);
                 }

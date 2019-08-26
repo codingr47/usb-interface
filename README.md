@@ -13,9 +13,9 @@ we assume that you have node >= 8.16 installed.
 
 we assume that you have npm installed.
 
-The first step is to install ts-node, better globally:
+The first step is to install ts-node, mocha, and better globally:
 ````
-npm install -g ts-node
+npm install -g ts-node mocha
 ````
 The next step is to cd to project's root and install the project's dependencies
 

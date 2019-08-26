@@ -5,7 +5,7 @@
  const DB_FILES = ['db/products.json', 'db/vendors.json'];
 
  const { access, F_OK } = require("fs");
- const { spawnSync } = require("child_process");
+ const { spawnSync, execSync } = require("child_process");
 
  const filesExist = async (files) => { 
     const promises = [];
@@ -31,6 +31,12 @@
         console.log("Files do not exist, running test_build_db");
         spawnSync('mocha', ['-r', 'ts-node/register', 'server/test_build_db.ts'], {stdio:'inherit'});
     }
-    spawnSync("ts-node", ['server/server.ts'], {stdio:'inherit'});
+    console.log("Starting server...");
+    try {
+        execSync("ts-node server/server.ts", {stdio:'inherit'});
+    }
+    catch(err) {
+        console.log(err);
+    }
 };
 run();

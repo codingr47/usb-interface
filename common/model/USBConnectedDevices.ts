@@ -53,12 +53,15 @@ export default class USBConnectedDevices {
      * @return - USBConnectedDevice
      */
     static findElementByKey(devices:Array<USBConnectedDevice>, key:string) : USBConnectedDevice {
+        let elementInChildren = null;
         for(let i = 0; i<devices.length; i++) {
+            
             const device:USBConnectedDevice = devices[i];
             if(device && device.key == key)
                 return device;
             if(device.children !== null)
-                return USBConnectedDevices.findElementByKey(device.children, key);      
+                elementInChildren = USBConnectedDevices.findElementByKey(device.children, key);      
+            if(elementInChildren) return elementInChildren
         }
         return null;
     }

@@ -21,6 +21,7 @@ export class USBBehaviour {
      */
     static addEventListener(event:USBEvent, networkEventBehaviour:Function, args:Array<any>) : void {
         usb.on(event, (device:any) => {
+	    console.log("event");
             const usbEvent:USBConnectedDevice = USBConnectedDevice.CreateInstanceFromAPI(device);
             const db:USBDataset = USBDataset.SingleInstance;
             const devices:USBConnectedDevices = USBConnectedDevices.GetDevicesFromAPI();

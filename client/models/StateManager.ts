@@ -24,6 +24,7 @@ export default class StateManager {
     }
 
     RefreshState() : void {
+	console.log(this.devices);
         this.set({deviceManager: this.devices});
     }
 

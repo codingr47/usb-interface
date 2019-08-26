@@ -22,7 +22,8 @@ let dataset:USBDataset;
  * in the text Online DB were actually being processed into entities
  */
 describe("is USB Database exported properly", () => {
-    it('sum of products and vendors should be equal to expected rows', async () => { 
+    it('sum of products and vendors should be equal to expected rows', async function () { 
+        this.timeout(15000);
         dataset = await getUSBDatasetFromUSBDB();
         const products = dataset.products.length;
         const vendors  = dataset.vendors.length;

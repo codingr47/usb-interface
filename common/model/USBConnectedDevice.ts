@@ -28,7 +28,7 @@ export default class USBConnectedDevice {
 
         }
         return new USBConnectedDevice(
-            md5(getKeyFromDevice(device)),
+            getKeyFromDevice(device),
             busNumber,
             db.getProductByID(idProduct),
             db.getVendorByID(idVendor),
