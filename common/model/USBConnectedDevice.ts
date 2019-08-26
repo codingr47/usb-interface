@@ -19,13 +19,21 @@ export default class USBConnectedDevice {
         const {busNumber} = device;
         const {idProduct, idVendor} =  device.deviceDescriptor; 
         const db = USBDataset.SingleInstance;
+        const getKeyFromDevice = (device:any) : string  => {
+            const busNumber:string = device.busNumber ?  device.busNumber.toString() : '';
+            const idProduct:string = device.deviceDescriptor.idProduct ? device.deviceDescriptor.idProduct.toString() : '';
+            const idVendor:string  = device.deviceDescriptor.idVendor  ? device.deviceDescriptor.idVendor.toString() : '';
+            const deviceAddress:string = device.deviceAddress ? device.deviceAddress.toString() : '';
+            return md5(busNumber+idProduct+idVendor+deviceAddress);
+
+        }
         return new USBConnectedDevice(
-            md5(JSON.stringify(Object.assign(device))),
+            md5(getKeyFromDevice(device)),
             busNumber,
             db.getProductByID(idProduct),
             db.getVendorByID(idVendor),
             children,
-            device.parent === null ? null : Object.assign(device.parent)
+            device.parent === null ? null : getKeyFromDevice(device.parent)
         );
     }
 
