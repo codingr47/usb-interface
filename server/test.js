@@ -32,6 +32,7 @@ const getUSBCapabilitiesAsync = async (device) => {
 
 usb.getDeviceList().forEach( async device =>  {
     try {
+        console.log(device);
         device.open();
         //console.log(getUSBDescriptorAsync(device, 1, 1));
         const descriptor = await getUSBDescriptorAsync(device, 1,4);

@@ -49,16 +49,16 @@ export default class USBConnectedDevices {
     /**
      * static recursive method that searches the tree for a specific product.
      * @param - devices:Array<USBConnectedDevice> default should be the 0 level devices list.
-     * @param - productID:number - the productID to search for
+     * @param - key:string - the device's key to search for
      * @return - USBConnectedDevice
      */
-    static findElementByProductID(devices:Array<USBConnectedDevice>, productID:number) : USBConnectedDevice {
+    static findElementByKey(devices:Array<USBConnectedDevice>, key:string) : USBConnectedDevice {
         for(let i = 0; i<devices.length; i++) {
             const device:USBConnectedDevice = devices[i];
-            if(device.product && device.product.id == productID)
+            if(device && device.key == key)
                 return device;
             if(device.children !== null)
-                return USBConnectedDevices.findElementByProductID(device.children, productID);      
+                return USBConnectedDevices.findElementByKey(device.children, key);      
         }
         return null;
     }
@@ -73,8 +73,8 @@ export default class USBConnectedDevices {
      * @param device:USBConnectedDevice - the device, already inside the model
      */
     insertElement(device:USBConnectedDevice) : void {
-        const parent:number = device.parentID;
-        const parent_element:USBConnectedDevice = USBConnectedDevices.findElementByProductID(this.devices, parent);
+        const parentKey:string = device.parentKey;
+        const parent_element:USBConnectedDevice = USBConnectedDevices.findElementByKey(this.devices, parentKey);
         if(parent_element !== null)
             parent_element.children.push(device);
 
@@ -85,12 +85,11 @@ export default class USBConnectedDevices {
      */
     removeElement(device:USBConnectedDevice) : void {
         const db = USBDataset.SingleInstance;
-        const parent:number = device.parentID;
-        const parent_element:USBConnectedDevice = USBConnectedDevices.findElementByProductID(this.devices, parent);
+        const parentKey:string = device.parentKey;
+        const parent_element:USBConnectedDevice = USBConnectedDevices.findElementByKey(this.devices, parentKey);
         if(parent_element !== null ) 
             parent_element.children = parent_element.children.filter( (device_in_question:USBConnectedDevice) => {
-                if(!device_in_question.product) return true;
-                return device_in_question.product.id != device.product.id
+                return device_in_question.key != device.key
             }); 
         
     }
